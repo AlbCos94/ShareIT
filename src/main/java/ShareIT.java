@@ -3,6 +3,7 @@
  */
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,10 +38,12 @@ public class ShareIT {
         UtilsDB.addRecord("ZZZZ", 123, connDB); 
         UtilsDB.removeRecord("ZZZZ", connDB);
         
+        java.time.LocalDate fecha_nace = java.time.LocalDate.now();
+
 
         User newUser = new User(
                 "john_doe", "john.doe@example.com", "hashed_password", "John", "Doe",
-                "1990-01-01", "649853472", true, true
+                fecha_nace, "649853472", true, true
         );
 
         // we add the user

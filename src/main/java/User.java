@@ -1,10 +1,12 @@
+import java.sql.Date;
+
 public class User {
     private String username;
     private String email;
     private String passwordHash;
     private String firstName;
     private String lastName;
-    private String dateOfBirth;
+    private java.time.LocalDate dateOfBirth;
     private String phoneNumber;
     private java.time.LocalDateTime createdAt;
     private java.time.LocalDateTime updatedAt;
@@ -14,7 +16,7 @@ public class User {
 
     // Constructor
     public User(String username, String email, String passwordHash, String firstName, String lastName,
-                String dateOfBirth, String phoneNumber, boolean isActive, boolean isVerified) {
+    java.time.LocalDate dateOfBirth, String phoneNumber, boolean isActive, boolean isVerified) {
         this.username = username;
         this.email = email;
         this.passwordHash = passwordHash;
@@ -45,8 +47,8 @@ public class User {
     public String getLastName() { return lastName; }
     public void setLastName(String lastName) { this.lastName = lastName; }
 
-    public String getDateOfBirth() { return dateOfBirth; }
-    public void setDateOfBirth(String dateOfBirth) { this.dateOfBirth = dateOfBirth; }
+    public java.time.LocalDate getDateOfBirth() { return dateOfBirth; }
+    public void setDateOfBirth(Date dateOfBirth) { this.dateOfBirth = dateOfBirth; }
 
     public String getPhoneNumber() { return phoneNumber; }
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }

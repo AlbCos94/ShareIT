@@ -157,7 +157,7 @@ public class UtilsDB {
             String sql = "INSERT INTO users (username, email, password_hash, first_name, last_name, " +
                     "date_of_birth, phone_number, created_at, updated_at, " +
                     "is_active, is_verified) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             // Create a PreparedStatement to insert the user into the database
             try (PreparedStatement statement = conn.prepareStatement(sql)) {
@@ -168,7 +168,7 @@ public class UtilsDB {
                 statement.setString(3, user.getPasswordHash());
                 statement.setString(4, user.getFirstName());
                 statement.setString(5, user.getLastName());
-                statement.setString(6, user.getDateOfBirth());
+                statement.setDate(6, user.getDateOfBirth());
                 statement.setString(7, user.getPhoneNumber());
                 statement.setTimestamp(8, Timestamp.valueOf(user.getCreatedAt()));
                 statement.setTimestamp(9, Timestamp.valueOf(user.getUpdatedAt()));
