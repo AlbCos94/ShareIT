@@ -7,6 +7,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -20,6 +22,7 @@ import java.util.Scanner;
 public class ShareIT {
 
     // Data base Connection
+    Connection connDB;
     private static final String DB_URL = "jdbc:postgresql://localhost:5433/ShareIT";
     private static final String USER = "postgres";  // Replace with your DB username
     private static final String PASSWORD = "albert";  // Replace with your DB password
@@ -34,7 +37,12 @@ public class ShareIT {
         System.out.println("this is a test"); 
 
 
-        removeRecord("costa", 123); // elimina todos que se llamen costa
+        connDB = UtilsDB.getConnectionWithDB();
+
+        UtilsDB.addRecord("DASDJASLDK", 123, connDB); // elimina todos que se llamen costa
+        
+        UtilsDB.closeConnectionWithDB(connDB);
+        //removeRecord("costa", 123); // elimina todos que se llamen costa
 
         /*
         
@@ -86,6 +94,8 @@ public class ShareIT {
     }
 
     // function to Add a Record to a data base called "test_table" with attributes "name (TEXT) and numero (INT)"
+
+    /* 
     public static void addRecord(String name, int numero) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -124,7 +134,7 @@ public class ShareIT {
             }
         }
     }
-
+    */
 
     // function to Add a Record to a data base called "test_table" with attributes "name (TEXT) and numero (INT)"
     public static void removeRecord(String name, int numero) {

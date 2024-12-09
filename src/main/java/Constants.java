@@ -2,6 +2,14 @@ public class Constants {
     // All the constants needed for Bowling Program 
     // They will be used in other classes
     
+
+    // Constant declarations for ShareIT
+    // Data base Connection
+    public static final String DB_URL = "jdbc:postgresql://localhost:5433/ShareIT";
+    public static final String USER = "postgres";  // Replace with your DB username
+    public static final String PASSWORD = "albert";  // Replace with your DB password
+
+
     // Constant declarations
     public static final int PLAYER_DATA_ELEMENTS = 3; // number of data elemetns that will be add for each player (name, surname and age)
     public static final String EMPTY_DATA_PLAYER = "";
