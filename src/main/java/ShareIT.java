@@ -5,25 +5,39 @@
 import java.util.Arrays;
 import java.util.Scanner;
 
+
+
+
 /**
  *
  * @author IOC & Albert Costa Ruiz as student
  */
 public class ShareIT {
 
+    // Data base Connection
+    private static final String URL = "jdbc:postgresql://localhost:5433/ShareIT";
+    private static final String USER = "postgres";  // Replace with your DB username
+    private static final String PASSWORD = "albert";  // Replace with your DB password
+
      public static void main(String[] args) {
         ShareIT bowlingApp = new ShareIT();
         bowlingApp.start();
     }
 
-    public void start() {
+    public void start() {           
+
+        System.out.println("this is a test"); 
+        // old code
+        /* 
         BowlingData bowlingData = new BowlingData(); // inicializaction of a new object bowlingData 
         askingForPlayersAndDataInitialization(bowlingData);
         if (bowlingData.playersData == null){
             return; // end of the program
         }
         optionManager(bowlingData); 
+        */
     }
+
 
     // -- Auxiliar methods --
 

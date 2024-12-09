@@ -24,6 +24,11 @@
             <version>5.10.2</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.5.1</version>  <!-- Use the latest version -->
+        </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -31,4 +36,5 @@
         <maven.compiler.target>21</maven.compiler.target>
         <exec.mainClass>ShareIT</exec.mainClass>
     </properties>
+    
 </project>
