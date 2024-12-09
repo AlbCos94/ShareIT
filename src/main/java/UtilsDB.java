@@ -68,7 +68,7 @@ public class UtilsDB {
 
             // Step 5: Execute the query
             int rowsAffected = stmt.executeUpdate();
-            System.out.println("Record inserted successfully. Rows affected: " + rowsAffected);
+            System.out.println("Record with name "+name+ " and number "+ numero + " inserted successfully. Rows affected: " + rowsAffected);
         } catch (SQLException e) {
             // Handle any SQL exceptions (e.g., connection issues, query issues)
             e.printStackTrace();
@@ -78,9 +78,66 @@ public class UtilsDB {
                 if (stmt != null) {
                     stmt.close();
                 }
+                /* 
+                // connection is closed using a specific method
+                if (conn != null) {
+                    conn.close();
+                }*/
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    // function to remove a Record of a data base called "test_table" with attributes "name (TEXT)"
+    public static void removeRecord(String name, Connection conn) {
+        PreparedStatement stmt = null;
+
+        try {
+            // Step 1: Establish a connection to the database
+            //conn = DriverManager.getConnection(DB_URL, USER, PASSWORD);
+
+
+            if (conn.isClosed()){
+                conn = getConnectionWithDB();
+            }
+
+            // Step 2: Prepare the SQL DELETE statement
+            String sql = "DELETE FROM test1.test_table WHERE name = ?";
+
+            // Step 3: Create a PreparedStatement to execute the query
+            stmt = conn.prepareStatement(sql);
+
+            // Step 4: Set parameters for the PreparedStatement
+            stmt.setString(1, name);  // (number of the field: 1, value parameter: name)
+
+
+            // Step 5: Execute the query
+            int rowsAffected = stmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Record with name " + name + " removed successfully.");
+            } else {
+                System.out.println("No record found with name " + name);
+            }
+
+
+        } catch (SQLException e) {
+            // Handle any SQL exceptions (e.g., connection issues, query issues)
+            e.printStackTrace();
+        } finally {
+            // Step 6: Close the resources to avoid memory leaks
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+                /* 
                 if (conn != null) {
                     conn.close();
                 }
+                // DB closed using a specific method
+                */
             } catch (SQLException e) {
                 e.printStackTrace();
             }

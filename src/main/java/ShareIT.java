@@ -39,47 +39,11 @@ public class ShareIT {
 
         connDB = UtilsDB.getConnectionWithDB();
 
-        UtilsDB.addRecord("DASDJASLDK", 123, connDB); // elimina todos que se llamen costa
+        UtilsDB.addRecord("ZZZZ", 123, connDB); 
+        UtilsDB.removeRecord("ZZZZ", connDB);
         
         UtilsDB.closeConnectionWithDB(connDB);
         //removeRecord("costa", 123); // elimina todos que se llamen costa
-
-        /*
-        
-        addRecord("hola", 123);
-        addRecord("adios", 987);
-        
-        addRecord("costa", 987);
-        removeRecord("hola", 987);*/
-        /*
-        // Establish connection and perform operations
-        try {
-            // Connect to PostgreSQL database
-             
-            Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("Connected to the PostgreSQL server successfully.");
-            */
-            // Create a statement and execute a query
-            /* 
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM mytable");  // Replace with your table
-
-            // Process the result set
-            while (rs.next()) {
-                int id = rs.getInt("id");  // Replace with your column name
-                String name = rs.getString("name");  // Replace with your column name
-                System.out.println("ID: " + id + ", Name: " + name);
-            }
-
-            // Close resources
-            rs.close();
-            stmt.close();
-            
-            //connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        */
 
         
         // old code
@@ -92,101 +56,6 @@ public class ShareIT {
         optionManager(bowlingData); 
         */
     }
-
-    // function to Add a Record to a data base called "test_table" with attributes "name (TEXT) and numero (INT)"
-
-    /* 
-    public static void addRecord(String name, int numero) {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-
-        try {
-            // Step 1: Establish a connection to the database
-            conn = DriverManager.getConnection(DB_URL, USER, PASSWORD);
-
-            // Step 2: Prepare the SQL INSERT statement
-            String sql = "INSERT INTO test1.test_table (name, numero) VALUES (?, ?)";
-
-            // Step 3: Create a PreparedStatement to execute the query
-            stmt = conn.prepareStatement(sql);
-
-            // Step 4: Set parameters for the PreparedStatement
-            stmt.setString(1, name);  // (number of the field: 1, value parameter: name)
-            stmt.setInt(2, numero);   // (number of the field: 2, value parameter: numero)
-
-            // Step 5: Execute the query
-            int rowsAffected = stmt.executeUpdate();
-            System.out.println("Record inserted successfully. Rows affected: " + rowsAffected);
-        } catch (SQLException e) {
-            // Handle any SQL exceptions (e.g., connection issues, query issues)
-            e.printStackTrace();
-        } finally {
-            // Step 6: Close the resources to avoid memory leaks
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    */
-
-    // function to Add a Record to a data base called "test_table" with attributes "name (TEXT) and numero (INT)"
-    public static void removeRecord(String name, int numero) {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-
-        try {
-            // Step 1: Establish a connection to the database
-            conn = DriverManager.getConnection(DB_URL, USER, PASSWORD);
-
-            // Step 2: Prepare the SQL DELETE statement
-            String sql = "DELETE FROM test1.test_table WHERE name = ?";
-
-            // Step 3: Create a PreparedStatement to execute the query
-            stmt = conn.prepareStatement(sql);
-
-            // Step 4: Set parameters for the PreparedStatement
-            stmt.setString(1, name);  // (number of the field: 1, value parameter: name)
-
-
-            // Step 5: Execute the query
-            int rowsAffected = stmt.executeUpdate();
-
-            if (rowsAffected > 0) {
-                System.out.println("Record with name " + name + " removed successfully.");
-            } else {
-                System.out.println("No record found with name " + name);
-            }
-
-
-        } catch (SQLException e) {
-            // Handle any SQL exceptions (e.g., connection issues, query issues)
-            e.printStackTrace();
-        } finally {
-            // Step 6: Close the resources to avoid memory leaks
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-
-
-
-
 
     // -- Auxiliar methods --
 
