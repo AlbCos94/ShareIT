@@ -1,6 +1,10 @@
 import java.util.Arrays;
 
+// to get time info
+import java.time.LocalDateTime;
+
 // SQL pacakges
+import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -145,8 +149,45 @@ public class UtilsDB {
     }
 
     
+    public static void addUser(User user, Connection conn) throws SQLException {
+        // Establish a connection to the PostgreSQL database
+        try (conn) {
+            
+            // SQL insert statement to add a new user to the database
+            String sql = "INSERT INTO users (username, email, password_hash, first_name, last_name, " +
+                    "date_of_birth, phone_number, created_at, updated_at, " +
+                    "is_active, is_verified) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+            // Create a PreparedStatement to insert the user into the database
+            try (PreparedStatement statement = conn.prepareStatement(sql)) {
+                
+                // Set the values for the PreparedStatement
+                statement.setString(1, user.getUsername());
+                statement.setString(2, user.getEmail());
+                statement.setString(3, user.getPasswordHash());
+                statement.setString(4, user.getFirstName());
+                statement.setString(5, user.getLastName());
+                statement.setString(6, user.getDateOfBirth());
+                statement.setString(7, user.getPhoneNumber());
+                statement.setTimestamp(8, Timestamp.valueOf(user.getCreatedAt()));
+                statement.setTimestamp(9, Timestamp.valueOf(user.getUpdatedAt()));
+                statement.setBoolean(10, user.isActive());
+                statement.setBoolean(11, user.isVerified());
+
+                // Execute the statement to insert the user
+                int rowsAffected = statement.executeUpdate();
+                
+                // Optional: Check if the insertion was successful
+                if (rowsAffected > 0) {
+                    System.out.println("User added successfully.");
+                } else {
+                    System.out.println("Failed to add user.");
+                }
+            }
+        }
     
+    }
 
     
 

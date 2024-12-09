@@ -12,9 +12,6 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Scanner;
 
-
-
-
 /**
  *
  * @author IOC & Albert Costa Ruiz as student
@@ -23,9 +20,7 @@ public class ShareIT {
 
     // Data base Connection
     Connection connDB;
-    private static final String DB_URL = "jdbc:postgresql://localhost:5433/ShareIT";
-    private static final String USER = "postgres";  // Replace with your DB username
-    private static final String PASSWORD = "albert";  // Replace with your DB password
+
 
      public static void main(String[] args) {
         ShareIT bowlingApp = new ShareIT();
@@ -41,6 +36,25 @@ public class ShareIT {
 
         UtilsDB.addRecord("ZZZZ", 123, connDB); 
         UtilsDB.removeRecord("ZZZZ", connDB);
+        
+
+        User newUser = new User(
+                "john_doe", "john.doe@example.com", "hashed_password", "John", "Doe",
+                "1990-01-01", "649853472", true, true
+        );
+
+        // we add the user
+        try {
+            UtilsDB.addUser(newUser, connDB);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        
+
+        
+
+        
         
         UtilsDB.closeConnectionWithDB(connDB);
         //removeRecord("costa", 123); // elimina todos que se llamen costa
