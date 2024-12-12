@@ -44,17 +44,25 @@ public class ShareIT {
         java.lang.String fecha_nac = new java.lang.String("1994-08-14");
 
         User newUser = new User(
-                "john_doe", "john.doe@example.com", "hashed_password", "John", "Doe",
+                "john3_doe", "john3.doe@example.com", "hashed_password", "John", "Doe",
                 fecha_nac, "649853472", true, true
         );
 
         // we add the user
+        /* 
         try {
             UtilsDB.addUser(newUser, connDB);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+        */
+
+        // we remove a user 
+        try {
+            UtilsDB.deleteUser("john_doe", connDB);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         
 
         

@@ -13,3 +13,5 @@ CREATE TABLE users (
     is_active BOOLEAN DEFAULT TRUE,            -- Whether the user account is active
     is_verified BOOLEAN DEFAULT FALSE          -- Whether the user's email or account is verified
 );
+
+select * from users;

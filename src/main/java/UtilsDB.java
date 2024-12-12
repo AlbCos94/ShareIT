@@ -35,7 +35,7 @@ public class UtilsDB {
         try {
             // Close connection with PostgreSQL database
             connDB.close();
-            System.out.println("Connected to the PostgreSQL closed successfully.");
+            System.out.println("Connection to the PostgreSQL closed successfully.");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -184,6 +184,35 @@ public class UtilsDB {
     
     }
 
+
+
+    public static void deleteUser(String username, Connection conn) throws SQLException {
+        // Establish a connection to the PostgreSQL database
+        try (conn) {
+            
+            // SQL insert statement to remove a user by its username
+
+            String sql = "DELETE FROM users WHERE username = ?";
+            
+            // Create a PreparedStatement to insert the user into the database
+            try (PreparedStatement statement = conn.prepareStatement(sql)) {
+                
+                // Set the values for the PreparedStatement
+                statement.setString(1, username);
+
+                // Execute the statement to insert the user
+                int rowsAffected = statement.executeUpdate();
+                
+                // Optional: Check if the insertion was successful
+                if (rowsAffected > 0) {
+                    System.out.println("User deleted successfully.");
+                } else {
+                    System.out.println("Failed to delete user.");
+                }
+            }
+        }
+    
+    }
     
 
     
