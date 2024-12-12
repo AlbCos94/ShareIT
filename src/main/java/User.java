@@ -6,7 +6,7 @@ public class User {
     private String passwordHash;
     private String firstName;
     private String lastName;
-    private java.time.LocalDate dateOfBirth;
+    private java.lang.String dateOfBirth;
     private String phoneNumber;
     private java.time.LocalDateTime createdAt;
     private java.time.LocalDateTime updatedAt;
@@ -16,7 +16,7 @@ public class User {
 
     // Constructor
     public User(String username, String email, String passwordHash, String firstName, String lastName,
-    java.time.LocalDate dateOfBirth, String phoneNumber, boolean isActive, boolean isVerified) {
+    java.lang.String dateOfBirth, String phoneNumber, boolean isActive, boolean isVerified) {
         this.username = username;
         this.email = email;
         this.passwordHash = passwordHash;
@@ -47,8 +47,17 @@ public class User {
     public String getLastName() { return lastName; }
     public void setLastName(String lastName) { this.lastName = lastName; }
 
-    public java.time.LocalDate getDateOfBirth() { return dateOfBirth; }
-    public void setDateOfBirth(Date dateOfBirth) { this.dateOfBirth = dateOfBirth; }
+    public java.lang.String getDateOfBirth() { return dateOfBirth; }
+
+    /* 
+    public String getDateOfBirthAsString() { 
+        String dateToString = new String();
+        dateToString = String.valueOf(dateOfBirth.getYear()) + "-" + String.valueOf(dateOfBirth.getMonthValue() + 
+        "-" +String.valueOf(dateOfBirth.getDayOfWeek().ordinal()) ) ;
+        return dateToString; 
+    }*/
+
+    public void setDateOfBirth(java.lang.String dateOfBirth) { this.dateOfBirth = dateOfBirth; }
 
     public String getPhoneNumber() { return phoneNumber; }
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }

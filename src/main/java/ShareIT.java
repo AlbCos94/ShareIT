@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
+import java.time.LocalDate; // for birthday date
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -38,12 +38,14 @@ public class ShareIT {
         UtilsDB.addRecord("ZZZZ", 123, connDB); 
         UtilsDB.removeRecord("ZZZZ", connDB);
         
-        java.time.LocalDate fecha_nace = java.time.LocalDate.now();
+        //java.time.LocalDate fecha_nacimiento = java.time.LocalDate.of(1994,8,14);
 
+
+        java.lang.String fecha_nac = new java.lang.String("1994-08-14");
 
         User newUser = new User(
                 "john_doe", "john.doe@example.com", "hashed_password", "John", "Doe",
-                fecha_nace, "649853472", true, true
+                fecha_nac, "649853472", true, true
         );
 
         // we add the user

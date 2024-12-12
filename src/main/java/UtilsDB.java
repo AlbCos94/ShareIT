@@ -5,11 +5,6 @@ import java.time.LocalDateTime;
 
 // SQL pacakges
 import java.sql.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class UtilsDB {
 
@@ -168,7 +163,7 @@ public class UtilsDB {
                 statement.setString(3, user.getPasswordHash());
                 statement.setString(4, user.getFirstName());
                 statement.setString(5, user.getLastName());
-                statement.setDate(6, user.getDateOfBirth());
+                statement.setDate(6, java.sql.Date.valueOf(user.getDateOfBirth()));
                 statement.setString(7, user.getPhoneNumber());
                 statement.setTimestamp(8, Timestamp.valueOf(user.getCreatedAt()));
                 statement.setTimestamp(9, Timestamp.valueOf(user.getUpdatedAt()));
