@@ -1,9 +1,8 @@
 CREATE TYPE appuser AS (
-	user_id integer,
 	username varchar,
 	email varchar,
 	password_hash text,
-	firts_name varchar,
+	first_name varchar,
 	last_name varchar,
 	date_of_birth date,
 	phone_number varchar,

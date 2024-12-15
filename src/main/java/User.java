@@ -28,7 +28,7 @@ public class User {
         this.isVerified = isVerified;
         this.createdAt = java.time.LocalDateTime.now();
         this.updatedAt = this.createdAt;
-        this.lastLogin = null; // Can be set later
+        this.lastLogin = this.createdAt; // Can be set later
     }
 
     // Getters and setters

@@ -1,7 +1,6 @@
 
 CREATE TABLE appusers OF appuser (
-	PRIMARY KEY(user_id),
-	username UNIQUE NOT NULL,
+	username PRIMARY KEY,
 	email UNIQUE NOT NULL,
 	password_hash NOT NULL ,
 	created_at DEFAULT CURRENT_TIMESTAMP, -- Date and time when the user account was created

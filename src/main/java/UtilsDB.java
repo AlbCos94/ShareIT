@@ -1,5 +1,7 @@
 import java.util.Arrays;
 
+import org.postgresql.util.PSQLException;
+
 // to get time info
 import java.time.LocalDateTime;
 
@@ -183,6 +185,49 @@ public class UtilsDB {
         }
     
     }
+
+
+
+    public static void addUserV2(User user, Connection conn) throws SQLException {
+        
+        //CallableStatement callableStatement = null;
+        
+        // Establish a connection to the PostgreSQL database
+        try (conn) {
+            
+            // Define SQL to call the adduser function with an appuser record of type "AppUser"
+            // Not possible to pass an object directly to SQL!! it needs to be passed as a record with the type. It needs to be parsed!
+            String sql = "SELECT adduser(ROW(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)::appuser)";
+
+            try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+                // Set the values for the appuser composite type
+                stmt.setString(1, user.getUsername());
+                stmt.setString(2, user.getEmail());
+                stmt.setString(3, user.getPasswordHash());
+                stmt.setString(4, user.getFirstName());
+                stmt.setString(5, user.getLastName());
+                stmt.setDate(6, java.sql.Date.valueOf(user.getDateOfBirth()));
+                stmt.setString(7, user.getPhoneNumber());
+                stmt.setTimestamp(8, Timestamp.valueOf(user.getCreatedAt()));
+                stmt.setTimestamp(9, Timestamp.valueOf(user.getUpdatedAt()));
+                stmt.setTimestamp(10, Timestamp.valueOf(user.getLastLogin()));
+                stmt.setBoolean(11, user.isActive());
+                stmt.setBoolean(12, user.isVerified());
+                
+                // Execute the query
+                stmt.execute();
+                
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
 
 
