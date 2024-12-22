@@ -1,3 +1,31 @@
+
+-- FUNCTION TO DELETE USERS
+
+SELECT delete_user('ALBCOSRUI2');
+
+
+CREATE OR REPLACE FUNCTION delete_user(in_username varchar) RETURNS void AS
+$$
+DECLARE
+
+BEGIN
+    -- checks here -> if the username exists
+	IF NOT EXISTS (SELECT 1 FROM appusers WHERE username = in_username) THEN
+        RAISE EXCEPTION 'Username % does not exist', in_username;
+    END IF;
+
+	-- Delete the user with the corresponding user name from Appusers table
+	DELETE FROM appusers WHERE username = in_username;
+	RAISE NOTICE 'User with username % has been deleted', in_username;
+END
+$$ LANGUAGE plpgsql;
+
+
+
+
+-- FUNCTION TO ADD USERS
+
+
 INSERT INTO users (appuser)
 VALUES (
     ('johndoe', 'johndoe@example.com', 'hashedpassword', 'John', 'Doe', 
@@ -6,7 +34,7 @@ VALUES (
 
 SELECT * from appusers;
 
-SELECT adduser((
+SELECT add_user((
 	'albessrt_doe', 
     'albersst.doe@example.com', 
     'hashed_password_123', 
@@ -21,7 +49,7 @@ SELECT adduser((
     true
 )::appuser);
 
-CREATE OR REPLACE FUNCTION adduser(in_user appuser) RETURNS void AS
+CREATE OR REPLACE FUNCTION add_user(in_user appuser) RETURNS void AS
 $$
 DECLARE
 
@@ -42,6 +70,8 @@ BEGIN
 	in_user.username, in_user.email, in_user.password_hash, in_user.first_name, in_user.last_name, 
 	in_user.date_of_birth, in_user.phone_number, in_user.created_at, in_user.updated_at, in_user.last_login, in_user.is_active, in_user.is_verified
 	);
+	RAISE NOTICE 'User with username % has been created', in_user.username;
+
 END
 $$ LANGUAGE plpgsql;
 
