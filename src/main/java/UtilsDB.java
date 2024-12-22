@@ -44,7 +44,6 @@ public class UtilsDB {
         }
     }
 
-    
     // function to Add a Record to a data base called "test_table" with attributes "name (TEXT) and numero (INT)"
     public static void addRecord(String name, int numero, Connection conn) {
         PreparedStatement stmt = null;
@@ -89,7 +88,6 @@ public class UtilsDB {
             }
         }
     }
-
 
     // function to remove a Record of a data base called "test_table" with attributes "name (TEXT)"
     public static void removeRecord(String name, Connection conn) {
@@ -144,7 +142,6 @@ public class UtilsDB {
             }
         }
     }
-
     
     public static void addUser(User user, Connection conn) throws SQLException {
         // Establish a connection to the PostgreSQL database
@@ -190,7 +187,6 @@ public class UtilsDB {
 
     public static void addUserV2(User user, Connection conn) throws SQLException {
         
-        //CallableStatement callableStatement = null;
 
         // Not write "try(conn)"" since that will close the connection after the "try and catch" structure!!
  
@@ -271,13 +267,9 @@ public class UtilsDB {
 
     }
 
-
     public static void showUsernames(Connection conn) throws SQLException {
         
-        //CallableStatement callableStatement = null;
-        
 
-            
         // Define SQL to call the adduser function with an appuser record of type "AppUser"
         // Not possible to pass an object directly to SQL!! it needs to be passed as a record with the type. It needs to be parsed!
         String sql = "SELECT * FROM show_usernames()";
