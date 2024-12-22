@@ -148,41 +148,43 @@ public class UtilsDB {
     
     public static void addUser(User user, Connection conn) throws SQLException {
         // Establish a connection to the PostgreSQL database
-        try (conn) {
+        
+        // Not write "try(conn)"" since that will close the connection!!
+
             
-            // SQL insert statement to add a new user to the database
-            String sql = "INSERT INTO users (username, email, password_hash, first_name, last_name, " +
-                    "date_of_birth, phone_number, created_at, updated_at, " +
-                    "is_active, is_verified) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        // SQL insert statement to add a new user to the database
+        String sql = "INSERT INTO users (username, email, password_hash, first_name, last_name, " +
+                "date_of_birth, phone_number, created_at, updated_at, " +
+                "is_active, is_verified) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-            // Create a PreparedStatement to insert the user into the database
-            try (PreparedStatement statement = conn.prepareStatement(sql)) {
-                
-                // Set the values for the PreparedStatement
-                statement.setString(1, user.getUsername());
-                statement.setString(2, user.getEmail());
-                statement.setString(3, user.getPasswordHash());
-                statement.setString(4, user.getFirstName());
-                statement.setString(5, user.getLastName());
-                statement.setDate(6, java.sql.Date.valueOf(user.getDateOfBirth()));
-                statement.setString(7, user.getPhoneNumber());
-                statement.setTimestamp(8, Timestamp.valueOf(user.getCreatedAt()));
-                statement.setTimestamp(9, Timestamp.valueOf(user.getUpdatedAt()));
-                statement.setBoolean(10, user.isActive());
-                statement.setBoolean(11, user.isVerified());
+        // Create a PreparedStatement to insert the user into the database
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            
+            // Set the values for the PreparedStatement
+            statement.setString(1, user.getUsername());
+            statement.setString(2, user.getEmail());
+            statement.setString(3, user.getPasswordHash());
+            statement.setString(4, user.getFirstName());
+            statement.setString(5, user.getLastName());
+            statement.setDate(6, java.sql.Date.valueOf(user.getDateOfBirth()));
+            statement.setString(7, user.getPhoneNumber());
+            statement.setTimestamp(8, Timestamp.valueOf(user.getCreatedAt()));
+            statement.setTimestamp(9, Timestamp.valueOf(user.getUpdatedAt()));
+            statement.setBoolean(10, user.isActive());
+            statement.setBoolean(11, user.isVerified());
 
-                // Execute the statement to insert the user
-                int rowsAffected = statement.executeUpdate();
-                
-                // Optional: Check if the insertion was successful
-                if (rowsAffected > 0) {
-                    System.out.println("User added successfully.");
-                } else {
-                    System.out.println("Failed to add user.");
-                }
+            // Execute the statement to insert the user
+            int rowsAffected = statement.executeUpdate();
+            
+            // Optional: Check if the insertion was successful
+            if (rowsAffected > 0) {
+                System.out.println("User added successfully.");
+            } else {
+                System.out.println("Failed to add user.");
             }
         }
+
     
     }
 
@@ -191,32 +193,80 @@ public class UtilsDB {
     public static void addUserV2(User user, Connection conn) throws SQLException {
         
         //CallableStatement callableStatement = null;
+
+        // Not write "try(conn)"" since that will close the connection after the "try and catch" structure!!
+ 
+        // Define SQL to call the adduser function with an appuser record of type "AppUser"
+        // Not possible to pass an object directly to SQL!! it needs to be passed as a record with the type. It needs to be parsed!
+        String sql = "SELECT add_user(ROW(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)::appuser)";
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            // Set the values for the appuser composite type
+            stmt.setString(1, user.getUsername());
+            stmt.setString(2, user.getEmail());
+            stmt.setString(3, user.getPasswordHash());
+            stmt.setString(4, user.getFirstName());
+            stmt.setString(5, user.getLastName());
+            stmt.setDate(6, java.sql.Date.valueOf(user.getDateOfBirth()));
+            stmt.setString(7, user.getPhoneNumber());
+            stmt.setTimestamp(8, Timestamp.valueOf(user.getCreatedAt()));
+            stmt.setTimestamp(9, Timestamp.valueOf(user.getUpdatedAt()));
+            stmt.setTimestamp(10, Timestamp.valueOf(user.getLastLogin()));
+            stmt.setBoolean(11, user.isActive());
+            stmt.setBoolean(12, user.isVerified());
+            
+            // Execute the query
+            stmt.execute();
+            System.out.printf("User with username %s has been created. \n", user.getUsername());
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteUser(String username, Connection conn) throws SQLException {
+            
+        // SQL insert statement to remove a user by its username
+        String sql = "DELETE FROM users WHERE username = ?";
+        
+        // Create a PreparedStatement to insert the user into the database
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            
+            // Set the values for the PreparedStatement
+            statement.setString(1, username);
+
+            // Execute the statement to insert the user
+            int rowsAffected = statement.executeUpdate();
+            
+            // Optional: Check if the insertion was successful
+            if (rowsAffected > 0) {
+                System.out.println("User deleted successfully.");
+            } else {
+                System.out.println("Failed to delete user.");
+            }
+        }
+    
+    }
+    
+    public static void deleteUserV2(String username, Connection conn) throws SQLException {
+        
+        //CallableStatement callableStatement = null;
         
         // Establish a connection to the PostgreSQL database
         try (conn) {
             
             // Define SQL to call the adduser function with an appuser record of type "AppUser"
             // Not possible to pass an object directly to SQL!! it needs to be passed as a record with the type. It needs to be parsed!
-            String sql = "SELECT adduser(ROW(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)::appuser)";
+            String sql = "SELECT delete_user(?)";
 
             try(PreparedStatement stmt = conn.prepareStatement(sql)) {
 
                 // Set the values for the appuser composite type
-                stmt.setString(1, user.getUsername());
-                stmt.setString(2, user.getEmail());
-                stmt.setString(3, user.getPasswordHash());
-                stmt.setString(4, user.getFirstName());
-                stmt.setString(5, user.getLastName());
-                stmt.setDate(6, java.sql.Date.valueOf(user.getDateOfBirth()));
-                stmt.setString(7, user.getPhoneNumber());
-                stmt.setTimestamp(8, Timestamp.valueOf(user.getCreatedAt()));
-                stmt.setTimestamp(9, Timestamp.valueOf(user.getUpdatedAt()));
-                stmt.setTimestamp(10, Timestamp.valueOf(user.getLastLogin()));
-                stmt.setBoolean(11, user.isActive());
-                stmt.setBoolean(12, user.isVerified());
-                
+                stmt.setString(1, username);                
                 // Execute the query
                 stmt.execute();
+                System.out.printf("User with username %s has been removed. \n", username);
                 
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -227,39 +277,6 @@ public class UtilsDB {
         }
 
     }
-
-
-
-
-    public static void deleteUser(String username, Connection conn) throws SQLException {
-        // Establish a connection to the PostgreSQL database
-        try (conn) {
-            
-            // SQL insert statement to remove a user by its username
-
-            String sql = "DELETE FROM users WHERE username = ?";
-            
-            // Create a PreparedStatement to insert the user into the database
-            try (PreparedStatement statement = conn.prepareStatement(sql)) {
-                
-                // Set the values for the PreparedStatement
-                statement.setString(1, username);
-
-                // Execute the statement to insert the user
-                int rowsAffected = statement.executeUpdate();
-                
-                // Optional: Check if the insertion was successful
-                if (rowsAffected > 0) {
-                    System.out.println("User deleted successfully.");
-                } else {
-                    System.out.println("Failed to delete user.");
-                }
-            }
-        }
-    
-    }
-    
-
     
 
 }

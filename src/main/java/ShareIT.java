@@ -32,52 +32,32 @@ public class ShareIT {
 
         System.out.println("this is a test"); 
 
-
         connDB = UtilsDB.getConnectionWithDB();
-
-        UtilsDB.addRecord("ZZZZ", 123, connDB); 
-        UtilsDB.removeRecord("ZZZZ", connDB);
-        
-        //java.time.LocalDate fecha_nacimiento = java.time.LocalDate.of(1994,8,14);
-
 
         java.lang.String fecha_nac = new java.lang.String("1994-08-14");
 
         User newUser = new User(
-                "ALBCOSRUI", "ALBCR@gdample.com", "hashed_password", "dgf", "dg",
+                "ALBCOSRUI44", "ALBC44@gdample.com", "hashed_password", "dgf", "dg",
                 fecha_nac, "649853472", true, true
         );
 
-        // we add the user
-        /* 
-        try {
-            UtilsDB.addUser(newUser, connDB);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        */
-
-        // we remove a user 
-        /* 
-        try {
-            UtilsDB.deleteUser("john_doe", connDB);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        */
-
         // We create a user in the data base using a function defined in the data base
+        /* */
         try {
             UtilsDB.addUserV2(newUser, connDB);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         
+        // We remove a user
+        try {
+            UtilsDB.deleteUserV2("ALBCOSRUI33", connDB);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         
         UtilsDB.closeConnectionWithDB(connDB);
         //removeRecord("costa", 123); // elimina todos que se llamen costa
-
         
         // old code
         /* 

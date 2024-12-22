@@ -1,7 +1,11 @@
 
+-- Consulta table users
+SELECT * from appusers;
+
+
 -- FUNCTION TO DELETE USERS
 
-SELECT delete_user('ALBCOSRUI2');
+SELECT delete_user('ALBCOSRUI');
 
 
 CREATE OR REPLACE FUNCTION delete_user(in_username varchar) RETURNS void AS
@@ -11,7 +15,7 @@ DECLARE
 BEGIN
     -- checks here -> if the username exists
 	IF NOT EXISTS (SELECT 1 FROM appusers WHERE username = in_username) THEN
-        RAISE EXCEPTION 'Username % does not exist', in_username;
+        RAISE EXCEPTION 'User with username % does not exist', in_username;
     END IF;
 
 	-- Delete the user with the corresponding user name from Appusers table
@@ -32,7 +36,6 @@ VALUES (
     '1990-01-01', '1234567890', '2024-01-01 10:00:00', '2024-01-01 10:00:00', null, true, true)
 );
 
-SELECT * from appusers;
 
 SELECT add_user((
 	'albessrt_doe', 
