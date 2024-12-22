@@ -1,13 +1,36 @@
 
--- Consulta table users
+-- FUNCTION THAT RETURNS ALL THE USERS NAMES OF THE TABLE APPUSERS
+CREATE OR REPLACE FUNCTION show_usernames() RETURNS SETOF varchar AS
+$$
+DECLARE
+	cursor1 CURSOR FOR SELECT username FROM appusers;
+	username_i varchar;
+
+BEGIN
+	OPEN cursor1;
+	LOOP
+		FETCH cursor1 INTO username_i;
+		EXIT WHEN NOT FOUND;
+		RETURN NEXT username_i;
+	END LOOP;
+	CLOSE cursor1;
+	RETURN;
+END;
+$$ 
+LANGUAGE plpgsql;
+
+
+
+-- SHOW APPUSERS TABLE
 SELECT * from appusers;
 
 
 -- FUNCTION TO DELETE USERS
 
+--Function Call
 SELECT delete_user('ALBCOSRUI');
 
-
+--Function definition
 CREATE OR REPLACE FUNCTION delete_user(in_username varchar) RETURNS void AS
 $$
 DECLARE
@@ -36,7 +59,7 @@ VALUES (
     '1990-01-01', '1234567890', '2024-01-01 10:00:00', '2024-01-01 10:00:00', null, true, true)
 );
 
-
+-- Function Call
 SELECT add_user((
 	'albessrt_doe', 
     'albersst.doe@example.com', 
@@ -52,6 +75,7 @@ SELECT add_user((
     true
 )::appuser);
 
+--Function definition
 CREATE OR REPLACE FUNCTION add_user(in_user appuser) RETURNS void AS
 $$
 DECLARE

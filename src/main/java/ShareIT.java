@@ -37,25 +37,39 @@ public class ShareIT {
         java.lang.String fecha_nac = new java.lang.String("1994-08-14");
 
         User newUser = new User(
-                "ALBCOSRUI44", "ALBC44@gdample.com", "hashed_password", "dgf", "dg",
+                "albertcr22", "albertcr22@gdample.com", "hashed_password", "dgf", "dg",
                 fecha_nac, "649853472", true, true
         );
 
+        optionManager();
+
         // We create a user in the data base using a function defined in the data base
-        /* */
+        /*
         try {
             UtilsDB.addUserV2(newUser, connDB);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+         */
         // We remove a user
+        /* 
         try {
-            UtilsDB.deleteUserV2("ALBCOSRUI33", connDB);
+            UtilsDB.deleteUserV2("albertcr", connDB);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+        */
+
+        // We remove a user
+        /* 
+        try {
+            UtilsDB.showUsernames(connDB);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        */
+
+
         UtilsDB.closeConnectionWithDB(connDB);
         //removeRecord("costa", 123); // elimina todos que se llamen costa
         
@@ -142,9 +156,56 @@ public class ShareIT {
             UtilsBowling.setRoundPoints(bowlingData.pointsMatrix, i, roundNumber, pointsToInsert);
         }
     }
-    
+
+    // Method that manages the different options of the SHARE IT application
+    public void optionManager() {
+
+        Scanner reader = new Scanner(System.in); 
+        boolean corectData = false;
+        boolean finish = false;
+        int inputInt = 0;
+
+        do{
+            UtilsIO.showMenu(Constants.MENU_TEXT);
+
+            corectData = reader.hasNextInt();
+
+            if(corectData){
+                
+                inputInt = reader.nextInt();
+
+                if (inputInt == Constants.OPTION_POINT_ROUND){
+                    finish = true;
+                    //askingForRoundPoints(bowlingData);
+                    //UtilsIO.showRounds(bowlingData.playersData,bowlingData.pointsMatrix);
+
+                } else if (inputInt == Constants.OPTION_SHOW_RANKING){  
+                    finish = true;
+                    //showGeneralRanking(bowlingData);                                
+                
+                } else if (inputInt == Constants.OPTION_CHANGE_POINTS){   
+                    finish = true;
+                    //changePlayersPoints(bowlingData);
+                    //UtilsIO.showRounds(bowlingData.playersData,bowlingData.pointsMatrix);                
+                
+                } else if (inputInt == Constants.OPTION_QUIT){
+                    finish = true;
+                
+                } else{
+                    UtilsIO.showError(Constants.ERROR_OPTION);
+                }
+
+            } else{
+                
+                UtilsIO.showError(Constants.ERROR_OPTION);
+                reader.next();
+            }
+        } while( !finish );
+    }
+
+
     // Method that manages the different options of the application
-    public void optionManager(BowlingData bowlingData) {
+    public void optionManagerBowling(BowlingData bowlingData) {
 
         Scanner reader = new Scanner(System.in); 
         boolean corectData = false;

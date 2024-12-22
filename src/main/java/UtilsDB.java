@@ -188,8 +188,6 @@ public class UtilsDB {
     
     }
 
-
-
     public static void addUserV2(User user, Connection conn) throws SQLException {
         
         //CallableStatement callableStatement = null;
@@ -251,32 +249,54 @@ public class UtilsDB {
     
     public static void deleteUserV2(String username, Connection conn) throws SQLException {
         
+
+            
+        // Define SQL to call the adduser function with an appuser record of type "AppUser"
+        // Not possible to pass an object directly to SQL!! it needs to be passed as a record with the type. It needs to be parsed!
+        String sql = "SELECT delete_user(?)";
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            // Set the values for the appuser composite type
+            stmt.setString(1, username);                
+            // Execute the query
+            stmt.execute();
+            System.out.printf("User with username %s has been removed. \n", username);
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
+
+
+    public static void showUsernames(Connection conn) throws SQLException {
+        
         //CallableStatement callableStatement = null;
         
-        // Establish a connection to the PostgreSQL database
-        try (conn) {
+
             
-            // Define SQL to call the adduser function with an appuser record of type "AppUser"
-            // Not possible to pass an object directly to SQL!! it needs to be passed as a record with the type. It needs to be parsed!
-            String sql = "SELECT delete_user(?)";
+        // Define SQL to call the adduser function with an appuser record of type "AppUser"
+        // Not possible to pass an object directly to SQL!! it needs to be passed as a record with the type. It needs to be parsed!
+        String sql = "SELECT * FROM show_usernames()";
 
-            try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-                // Set the values for the appuser composite type
-                stmt.setString(1, username);                
-                // Execute the query
-                stmt.execute();
-                System.out.printf("User with username %s has been removed. \n", username);
-                
-            } catch (SQLException e) {
-                e.printStackTrace();
+            ResultSet rs = stmt.executeQuery();
+            // Loop through the result set and print each username
+            while (rs.next()) {
+                String username = rs.getString(1); // The first (and only) column is the username
+                System.out.println(username);
             }
-
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
     }
-    
 
 }
+    
+

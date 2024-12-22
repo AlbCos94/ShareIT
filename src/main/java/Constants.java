@@ -35,7 +35,7 @@ public class Constants {
     public static final String MENU_FULLNAME = "FULL NAME"; // line displayed in the menu
     public static final String MENU_AGE = "AGE"; // line displayed in the men
     public static final String MENU_POINTS = "POINTS"; // line displayed in the men
-    public static final String MENU_TITLE = "GESTIO IOC BOWLING"; // title displayed in the menu
+    public static final String MENU_TITLE = "ShareIT Menu"; // title displayed in the menu
     public static final String ERROR_TITLE = "ERROR"; // error title displayed in the menu
     public static final String MENU_TEXT = "1) Puntuar ronda. \n2) Mostrar classificació. \n9) Corregir puntuació. \n0) Sortir."; // Options menu
     public static final String ERROR_OPTION = "No s'ha introduït un enter vàlid com a opció."; // Options menu
