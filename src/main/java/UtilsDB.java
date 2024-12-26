@@ -289,6 +289,61 @@ public class UtilsDB {
 
     }
 
+
+
+    public static boolean userExists(String username, Connection conn) throws SQLException {
+        
+        boolean userExists = false;
+
+        String sql = "SELECT exists_user(?)"; // function defined in Postgres
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            // Set the values for the appuser composite type
+            stmt.setString(1, username);                
+            // Execute the query
+            ResultSet resultSet = stmt.executeQuery();
+
+            if (resultSet.next()) {
+                // Retrieve the boolean value from the result set
+                userExists =  resultSet.getBoolean(1);  // '1' refers to the first column in the result
+                return userExists;
+            }           
+    
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return userExists;
+    }
+
+    public static boolean emailExists(String email, Connection conn) throws SQLException {
+        
+        boolean emailExists = false;
+
+        String sql = "SELECT exists_email(?)"; // function defined in Postgres
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            // Set the values for the appuser composite type
+            stmt.setString(1, email);                
+            // Execute the query
+            ResultSet resultSet = stmt.executeQuery();
+
+            if (resultSet.next()) {
+                // Retrieve the boolean value from the result set
+                emailExists =  resultSet.getBoolean(1);  // '1' refers to the first column in the result
+                return emailExists;
+            }           
+    
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return emailExists;
+    }
+
+
 }
     
 

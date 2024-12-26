@@ -1,5 +1,48 @@
+-- FUNCTION THAT RETURNS TRUE IF A GIVEN EMAIL EXISTS
+SELECT exists_email('albert.doe@example.com');
+
+CREATE OR REPLACE FUNCTION exists_email(in_email varchar) RETURNS bool AS
+$$
+DECLARE
+	existsEmail bool := false;
+BEGIN
+    -- checks here -> if the username exists
+	IF EXISTS (SELECT 1 FROM appusers WHERE email = in_email) THEN
+        existsEmail := true;
+		RETURN existsEmail;
+    END IF;
+
+	RETURN existsEmail;
+
+END
+$$ LANGUAGE plpgsql;
+
+
+-- FUNCTION THAT RETURNS TRUE IF A GIVEN USERNAME EXISTS
+SELECT exists_user('albert3_doe');
+
+CREATE OR REPLACE FUNCTION exists_user(in_username varchar) RETURNS bool AS
+$$
+DECLARE
+	existsUser bool := false;
+BEGIN
+    -- checks here -> if the username exists
+	IF EXISTS (SELECT 1 FROM appusers WHERE username = in_username) THEN
+        existsUser := true;
+		RETURN existsUser;
+    END IF;
+
+	RETURN existsUser;
+
+END
+$$ LANGUAGE plpgsql;
+
+
 
 -- FUNCTION THAT RETURNS ALL THE USERS NAMES OF THE TABLE APPUSERS
+
+SELECT * FROM show_usernames();
+
 CREATE OR REPLACE FUNCTION show_usernames() RETURNS SETOF varchar AS
 $$
 DECLARE

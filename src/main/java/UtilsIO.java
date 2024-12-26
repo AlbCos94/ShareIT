@@ -27,7 +27,7 @@ public class UtilsIO {
     }
 
  	//Ask to the user for a string
-	public static String askForString(String message, String errorMessage){
+	public static String askForAString(String message, String errorMessage){
         
 		Scanner reader = new Scanner(System.in); 
         boolean end = false;
@@ -35,7 +35,7 @@ public class UtilsIO {
 
         do{
             System.out.println(message); // User message with a request
-            inputString = reader.nextLine(); // Get the next string line introduced by user (everything he wrote before enter -> (\n) )
+            inputString = reader.next(); // Get the next string "word" introduced by the user -> just a single word (splitted by blank charactes or line break)
 
             if (!inputString.isEmpty()){
                 end = true;
@@ -46,6 +46,29 @@ public class UtilsIO {
 
         return inputString;
     }
+
+
+     	//Ask to the user for a string
+	public static String askForStringLine(String message, String errorMessage){
+        
+		Scanner reader = new Scanner(System.in); 
+        boolean end = false;
+        String inputString = "";
+
+        do{
+            System.out.println(message); // User message with a request
+            inputString = reader.nextLine(); // Get the next string line introduced by user (everything the user wrote before enter ( it can contain blank spaces ) -> (\n) )
+
+            if (!inputString.isEmpty()){
+                end = true;
+            } else{
+                showError(errorMessage);
+            }
+        } while ( end == false );
+
+        return inputString;
+    }
+
 
 	//Ask to the user for a integer
     public static int askForInteger(String message, String errorMessage) {

@@ -22,9 +22,14 @@ public class Constants {
     public static final int MAX_POINTS = 10; // max number of points a player can get by round
     public static final int NULL_POINTS = -1; // max number of points a player can get by round
     public static final int ERROR_INT_RESULT = -1; 
+    //MAIN MENU
     public static final int OPTION_POINT_ROUND = 1; // option given to introduce the points of a round
     public static final int OPTION_SHOW_RANKING = 2; // option given to display the points table
     public static final int OPTION_CHANGE_POINTS = 9; // option given to correct a players points
+    // USER MANAGER MENU
+    public static final int OPTION_ADD_USER = 1; 
+    public static final int OPTION_REMOVE_USER = 2; 
+    public static final int OPTION_SHOW_USERS = 3; 
 
     public static final int OPTION_QUIT = 0; // option given to finish the program
     public static final String SPLIT_LINE = "-"; // line displayed in the menu
@@ -37,7 +42,8 @@ public class Constants {
     public static final String MENU_POINTS = "POINTS"; // line displayed in the men
     public static final String MENU_TITLE = "ShareIT Menu"; // title displayed in the menu
     public static final String ERROR_TITLE = "ERROR"; // error title displayed in the menu
-    public static final String MENU_TEXT = "1) Puntuar ronda. \n2) Mostrar classificació. \n9) Corregir puntuació. \n0) Sortir."; // Options menu
+    public static final String MENU_TEXT = "1) User Manager. \n2) Work In Progress. \n9) Work In Progress. \n0) Sortir."; // Options menu
+    public static final String MENU_USER_TEXT = "1) Add User. \n2) Delete User. \n3) Show Users. \n0) Sortir."; // Options menu
     public static final String ERROR_OPTION = "No s'ha introduït un enter vàlid com a opció."; // Options menu
     public static final String ROUND_TO_POINT = "Quina ronda vol puntuar?"; // Question to ask to point a round
     public static final String ROUND_TO_POINT_ERROR = "La ronda introduïda no existeix. Introdueixi un valor entre 1 i " + ROUNDS_NUMBER; // Error round to point

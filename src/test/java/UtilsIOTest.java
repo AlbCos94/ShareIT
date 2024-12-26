@@ -66,7 +66,7 @@ public class UtilsIOTest {
     public void testAskForStringOK() {
         System.out.println("testAskForStringOK");
         provideInput(MESSAGE_TEST_INPUT);
-        String result = UtilsIO.askForString(MESSAGE_ASK_ANYTHING, MESSAGE_ERROR);
+        String result = UtilsIO.askForStringLine(MESSAGE_ASK_ANYTHING, MESSAGE_ERROR);
         assertEquals(MESSAGE_TEST_INPUT, result);
     }
 
@@ -74,7 +74,7 @@ public class UtilsIOTest {
     public void testAskForStringNotOKIfEmpty() {
         System.out.println("testAskForStringNotOKIfEmpty");
         provideInput("\n" + MESSAGE_TEST_INPUT);
-        String result = UtilsIO.askForString(MESSAGE_ASK_ANYTHING, MESSAGE_ERROR);
+        String result = UtilsIO.askForStringLine(MESSAGE_ASK_ANYTHING, MESSAGE_ERROR);
         assertEquals(MESSAGE_TEST_INPUT, result);
     }
 

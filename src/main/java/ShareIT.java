@@ -110,8 +110,8 @@ public class ShareIT {
             String questionName  = playerNumber+" - "+ Constants.ASK_FOR_PLAYERNAME;
             String questionSurname  = playerNumber+" - "+ Constants.ASK_FOR_PLAYERSURNAME;
             String questionAge  = playerNumber+" - "+ Constants.ASK_FOR_PLAYERAGE;
-            namePlayer = UtilsIO.askForString(questionName, Constants.ERROR_EMPTY_STRING);
-            surnamePlayer = UtilsIO.askForString(questionSurname, Constants.ERROR_EMPTY_STRING);
+            namePlayer = UtilsIO.askForStringLine(questionName, Constants.ERROR_EMPTY_STRING);
+            surnamePlayer = UtilsIO.askForStringLine(questionSurname, Constants.ERROR_EMPTY_STRING);
             agePlayer = UtilsIO.askForAge(questionAge, Constants.ERROR_PLAYERAGE);
 
             UtilsBowling.insertPlayerNames(bowlingData.playersData, i, namePlayer, surnamePlayer, agePlayer);
@@ -157,7 +157,7 @@ public class ShareIT {
         }
     }
 
-    // Method that manages the different options of the SHARE IT application
+    // Method that manages the different options of the SHARE IT application - MAIN MENU
     public void optionManager() {
 
         Scanner reader = new Scanner(System.in); 
@@ -175,7 +175,7 @@ public class ShareIT {
                 inputInt = reader.nextInt();
 
                 if (inputInt == Constants.OPTION_POINT_ROUND){
-                    finish = true;
+                    optionManagerUserMenu();
                     //askingForRoundPoints(bowlingData);
                     //UtilsIO.showRounds(bowlingData.playersData,bowlingData.pointsMatrix);
 
@@ -202,6 +202,55 @@ public class ShareIT {
             }
         } while( !finish );
     }
+
+
+    // Method that manages the different options of the SHARE IT application
+    public void optionManagerUserMenu() {
+
+        Scanner reader = new Scanner(System.in); 
+        boolean corectData = false;
+        boolean finish = false;
+        int inputInt = 0;
+
+        do{
+            UtilsIO.showMenu(Constants.MENU_USER_TEXT);
+
+            corectData = reader.hasNextInt();
+
+            if(corectData){
+                
+                inputInt = reader.nextInt();
+
+                if (inputInt == Constants.OPTION_ADD_USER){
+                    UserManager.askForNewUser(connDB);
+
+
+                } else if (inputInt == Constants.OPTION_REMOVE_USER){  
+                    UserManager.askForDeleteUser(connDB);
+                           
+                
+                } else if (inputInt == Constants.OPTION_SHOW_USERS){  
+                    UserManager.showUserNames(connDB);               
+                
+                } else if (inputInt == Constants.OPTION_QUIT){
+                    finish = true;
+                
+                } else{
+                    UtilsIO.showError(Constants.ERROR_OPTION);
+                }
+
+            } else{
+                
+                UtilsIO.showError(Constants.ERROR_OPTION);
+                reader.next();
+            }
+        } while( !finish );
+
+        optionManager(); // go back to option Manager (Main Menu)
+    }
+
+
+
 
 
     // Method that manages the different options of the application
@@ -263,7 +312,7 @@ public class ShareIT {
     public void changePlayersPoints(BowlingData bowlingData){
         
         // Ask for the name of the player
-        String playerFullName = UtilsIO.askForString(Constants.ASK_FOR_COMPLETE_NAME, Constants.ERROR_EMPTY_STRING);
+        String playerFullName = UtilsIO.askForStringLine(Constants.ASK_FOR_COMPLETE_NAME, Constants.ERROR_EMPTY_STRING);
         
         // Get the index of the player
         int indexPlayer = UtilsBowling.lookForPlayer(bowlingData.playersData, playerFullName);
